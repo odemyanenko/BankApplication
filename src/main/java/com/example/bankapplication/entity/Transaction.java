@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 import java.util.Objects;
 import java.util.UUID;
 
+import static jakarta.persistence.CascadeType.*;
+
 @Entity
 @Getter
 @Setter
@@ -20,33 +22,35 @@ import java.util.UUID;
 public class Transaction {
   @Id
   @Column(name = "id")
-  @GeneratedValue(generator = "UUID", strategy = GenerationType.UUID)
+  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @ManyToOne()
-  @JoinColumn(name = "debit_account_id", referencedColumnName = "id")
-  private Account debitAccount;// получатель
-
-  @ManyToOne()
-  @JoinColumn(name = "credit_account_id", referencedColumnName = "id")
-  private Account creditAccountId;// отправитель
-
-  @Column(name = "type")
+  @Column(name = "type", nullable = false)
   @Enumerated(EnumType.ORDINAL)
   private TransactionType type;
 
-  @Column(name = "amount")
+  @Column(name = "amount", nullable = false)
   private BigDecimal amount;
 
-  @Column(name = "description")
+  @Column(name = "description", length = 255)
   private String description;
 
-  @Column(name = "status")
+  @Column(name = "status", nullable = false)
   @Enumerated(EnumType.ORDINAL)
   private TransactionStatus status;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", nullable = false)
   private Timestamp createdAt;
+
+  @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
+  @JoinColumn(name = "debit_account_id", referencedColumnName = "id",
+          foreignKey = @ForeignKey(name = "FK_TRANSACTIONS_ACCOUNTS_DEBIT_ACCOUNT_ID"))
+  private Account debitAccount;// получатель
+
+  @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
+  @JoinColumn(name = "credit_account_id", referencedColumnName = "id",
+          foreignKey = @ForeignKey(name = "FK_TRANSACTIONS_ACCOUNTS_CREDIT_ACCOUNT_ID"))
+  private Account creditAccount;// отправитель
 
   @Override
   public boolean equals(Object o) {

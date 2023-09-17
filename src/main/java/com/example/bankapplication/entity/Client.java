@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import static jakarta.persistence.CascadeType.*;
@@ -21,44 +21,45 @@ import static jakarta.persistence.CascadeType.*;
 public class Client {
   @Id
   @Column(name = "id")
-  @GeneratedValue(generator = "UUID", strategy = GenerationType.UUID)
+  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
-  @JoinColumn(name = "manager_id", referencedColumnName = "id")
-  private Manager manager;
-
-  @Column(name = "tax_code")
+  @Column(name = "tax_code", nullable = false, length = 20)
   private String taxCode;
 
-  @Column(name = "first_name")
-  private String firstName;
-
-  @Column(name = "last_name")
+  @Column(name = "last_name", nullable = false, length = 50)
   private String lastName;
 
-  @Column(name = "email")
+  @Column(name = "first_name", length = 50)
+  private String firstName;
+
+  @Column(name = "email", nullable = false, length = 60)
   private String email;
 
-  @Column(name = "address")
+  @Column(name = "address", length = 80)
   private String address;
 
-  @Column(name = "phone")
+  @Column(name = "phone", nullable = false, length = 20)
   private String phone;
 
-  @Column(name = "status")
+  @Column(name = "status", nullable = false)
   @Enumerated(EnumType.ORDINAL)
   private ClientStatus status;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", nullable = false)
   private Timestamp createdAt;
 
   @Column(name = "updated_at")
   private Timestamp updatedAt;
 
+  @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
+  @JoinColumn(name = "manager_id", referencedColumnName = "id",
+          foreignKey = @ForeignKey(name = "FK_CLIENTS_MANAGERS_MANAGER_ID"))
+  private Manager manager;
+
   @OneToMany(mappedBy = "client", fetch = FetchType.LAZY,
           orphanRemoval = true, cascade = {MERGE, PERSIST, REFRESH})
-  private List<Account> accounts;
+  private Set<Account> accounts;
 
   @Override
   public boolean equals(Object o) {

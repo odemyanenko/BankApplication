@@ -8,6 +8,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import static jakarta.persistence.CascadeType.*;
@@ -22,35 +23,40 @@ import static jakarta.persistence.CascadeType.*;
 public class Product {
   @Id
   @Column(name = "id")
-  @GeneratedValue(generator = "UUID", strategy = GenerationType.UUID)
+  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
-  @JoinColumn(name = "manager_id", referencedColumnName = "id")
-  private Manager manager;
-
-  @Column(name = "name")
+  @Column(name = "name", nullable = false, length = 70)
   private String name;//Enum от может следать... ипотека, вклад, текущий счет...
 
-  @Column(name = "currency_code")
+  @Column(name = "currency_code", nullable = false)
   @Enumerated(EnumType.ORDINAL)
   private CurrencyCode currencyCode;
 
-  @Column(name = "interest_rate")
+  @Column(name = "interest_rate", nullable = false)
   private Double interestRate;
 
-  @Column(name = "limit")
-  private BigDecimal limit;
+  @Column(name = "limit_amount")
+  private BigDecimal limitAmount;
 
-  @Column(name = "status")
+  @Column(name = "status", nullable = false)
   @Enumerated(EnumType.ORDINAL)
   private ProductStatus status;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", nullable = false)
   private Timestamp createdAt;
 
   @Column(name = "updated_at")
   private Timestamp updatedAt;
+
+  @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
+  @JoinColumn(name = "manager_id", referencedColumnName = "id",
+          foreignKey = @ForeignKey(name = "FK_PRODUCTS_MANAGERS_MANAGER_ID"))
+  private Manager manager;
+
+  @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
+          cascade = {MERGE, PERSIST, REFRESH})
+  private Set<Agreement> agreements;
 
   @Override
   public boolean equals(Object o) {

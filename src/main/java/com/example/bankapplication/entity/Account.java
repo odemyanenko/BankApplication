@@ -9,6 +9,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import static jakarta.persistence.CascadeType.*;
@@ -23,36 +24,49 @@ import static jakarta.persistence.CascadeType.*;
 public class Account {
   @Id
   @Column(name = "id")
-  @GeneratedValue(generator = "UUID", strategy = GenerationType.UUID)
+  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
-  @JoinColumn(name = "client_id", referencedColumnName = "id")
-  private Client client;
-
-  @Column(name = "name")
+  @Column(name = "name", nullable = false, length = 100)
   private String name;
 
-  @Column(name = "type")
+  @Column(name = "type", nullable = false)
   @Enumerated(EnumType.ORDINAL)
   private AccountType type;
 
-  @Column(name = "status")
+  @Column(name = "status", nullable = false)
   @Enumerated(EnumType.ORDINAL)
   private AccountStatus status;
 
-  @Column(name = "balance")
+  @Column(name = "balance", nullable = false)
   private BigDecimal balance;
 
-  @Column(name = "currency_code")
+  @Column(name = "currency_code", nullable = false)
   @Enumerated(EnumType.STRING)
   private CurrencyCode currencyCode;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", nullable = false)
   private Timestamp createdAt;
 
   @Column(name = "updated_at")
   private Timestamp updatedAt;
+
+  @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
+  @JoinColumn(name = "client_id", referencedColumnName = "id",
+          foreignKey = @ForeignKey(name = "FK_ACCOUNTS_CLIENTS_CLIENT_ID"))
+  private Client client;
+
+  @OneToMany(mappedBy = "account", fetch = FetchType.LAZY,
+          cascade = {MERGE, PERSIST, REFRESH})
+  private Set<Agreement> agreements;
+
+  @OneToMany(mappedBy = "debitAccount", fetch = FetchType.LAZY,
+          cascade = {MERGE, PERSIST, REFRESH})
+  private Set<Transaction> debitTransactions;
+
+  @OneToMany(mappedBy = "creditAccount", fetch = FetchType.LAZY,
+          cascade = {MERGE, PERSIST, REFRESH})
+  private Set<Transaction> creditTransactions;
 
   @Override
   public boolean equals(Object o) {

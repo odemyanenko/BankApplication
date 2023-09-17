@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import static jakarta.persistence.CascadeType.*;
@@ -21,28 +21,32 @@ import static jakarta.persistence.CascadeType.*;
 public class Manager {
   @Id
   @Column(name = "id")
-  @GeneratedValue(generator = "UUID", strategy = GenerationType.UUID)
+  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(name = "first_name")
-  private String firstName;
-
-  @Column(name = "last_name")
+  @Column(name = "last_name", nullable = false, length = 50)
   private String lastName;
 
-  @Column(name = "status")
+  @Column(name = "first_name", length = 50)
+  private String firstName;
+
+  @Column(name = "status", nullable = false)
   @Enumerated(EnumType.ORDINAL)
   private ManagerStatus status;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", nullable = false)
   private Timestamp createdAt;
 
   @Column(name = "updated_at")
   private Timestamp updatedAt;
 
   @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY,
-          orphanRemoval = true, cascade = {MERGE, PERSIST, REFRESH})
-  private List<Client> clients;
+          cascade = {MERGE, PERSIST, REFRESH})
+  private Set<Client> clients;
+
+  @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY,
+          cascade = {MERGE, PERSIST, REFRESH})
+  private Set<Product> products;
 
   @Override
   public boolean equals(Object o) {

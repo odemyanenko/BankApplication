@@ -22,42 +22,44 @@ import static jakarta.persistence.CascadeType.*;
 public class Agreement {
   @Id
   @Column(name = "id")
-  @GeneratedValue(generator = "UUID", strategy = GenerationType.UUID)
+  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
-
-  @OneToOne()
-  @JoinColumn(name = "account_id", referencedColumnName = "id")
-  private Account account;
-
-  @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
-  @JoinColumn(name = "product_id", referencedColumnName = "id")
-  private Product product;
 
   @Column(name = "interest_rate")
   private Double interestRate;// процентная ставка...
 
-  @Column(name = "status")
+  @Column(name = "status", nullable = false)
   @Enumerated(EnumType.ORDINAL)
   private AgreementStatus status;
 
-  @Column(name = "sum")
+  @Column(name = "total")
   private BigDecimal sum;
 
-  @Column(name = "created_at")
+  @Column(name = "created_at", nullable = false)
   private Timestamp createdAt;
 
   @Column(name = "updated_at")
   private Timestamp updatedAt;
 
+  @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
+  @JoinColumn(name = "account_id", referencedColumnName = "id",
+          foreignKey = @ForeignKey(name = "FK_AGREEMENTS_ACCOUNTS_ACCOUNT_ID"))
+  private Account account;
+
+  @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
+  @JoinColumn(name = "product_id", referencedColumnName = "id",
+          foreignKey = @ForeignKey(name = "FK_AGREEMENTS_PRODUCTS_PRODUCT_ID"))
+  private Product product;
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof Agreement agreement)) return false;
-    return id.equals(agreement.id) && account.equals(agreement.account) && product.equals(agreement.product);
+    return Objects.equals(id, agreement.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, account, product);
+    return Objects.hash(id);
   }
 }
