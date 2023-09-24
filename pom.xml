@@ -15,6 +15,9 @@
     <description>BankApplication</description>
     <properties>
         <java.version>17</java.version>
+        <liquibase.version>4.23.2</liquibase.version>
+        <mysql.version>8.0.28</mysql.version>
+<!--        <postgresql.version>42.6.0</postgresql.version>-->
     </properties>
     <dependencies>
         <!-- boot -->
@@ -38,10 +41,20 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- database -->
+        <!-- database and migration -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>mysql</groupId>-->
+<!--            <artifactId>mysql-connector-java</artifactId>-->
+<!--            <version>${mysql.version}</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
         </dependency>
 
         <!-- code generation -->
