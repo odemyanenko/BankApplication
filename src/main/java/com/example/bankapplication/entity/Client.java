@@ -24,14 +24,14 @@ public class Client {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(name = "tax_code", nullable = false, length = 20)
-  private String taxCode;
-
   @Column(name = "last_name", nullable = false, length = 50)
   private String lastName;
 
   @Column(name = "first_name", length = 50)
   private String firstName;
+
+  @Column(name = "tax_code", nullable = false, length = 20)
+  private String taxCode;
 
   @Column(name = "email", nullable = false, length = 60)
   private String email;

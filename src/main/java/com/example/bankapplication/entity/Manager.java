@@ -37,7 +37,7 @@ public class Manager {
   @Column(name = "created_at", nullable = false)
   private Timestamp createdAt;
 
-  @Column(name = "updated_at")
+  @Column(name = "updated_at", nullable = false)
   private Timestamp updatedAt;
 
   @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY,

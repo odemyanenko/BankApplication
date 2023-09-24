@@ -5,5 +5,8 @@ public enum TransactionType {
   REFUND,
   PREAUTH,
   CAPTURE,
-  ACCOUNT_VERIFICATION
+  ACCOUNT_VERIFICATION,
+  TRANSFER,
+  CASH,
+  DEPOSIT
 }
