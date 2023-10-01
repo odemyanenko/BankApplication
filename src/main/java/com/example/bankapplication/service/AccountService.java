@@ -6,5 +6,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface AccountService {
-  Optional<Account> getAccountByID(UUID id);
+  Optional<Account> findById(UUID id);
 }

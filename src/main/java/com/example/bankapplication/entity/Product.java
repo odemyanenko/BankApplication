@@ -2,6 +2,7 @@ package com.example.bankapplication.entity;
 
 import com.example.bankapplication.entity.enums.CurrencyCode;
 import com.example.bankapplication.entity.enums.ProductStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -54,6 +55,7 @@ public class Product {
           foreignKey = @ForeignKey(name = "FK_PRODUCTS_MANAGERS_MANAGER_ID"))
   private Manager manager;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
           cascade = {MERGE, PERSIST, REFRESH})
   private Set<Agreement> agreements;

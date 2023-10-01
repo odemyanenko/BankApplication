@@ -1,6 +1,7 @@
 package com.example.bankapplication.entity;
 
 import com.example.bankapplication.entity.enums.ManagerStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,10 +41,12 @@ public class Manager {
   @Column(name = "updated_at", nullable = false)
   private Timestamp updatedAt;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY,
           cascade = {MERGE, PERSIST, REFRESH})
   private Set<Client> clients;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "manager", fetch = FetchType.LAZY,
           cascade = {MERGE, PERSIST, REFRESH})
   private Set<Product> products;
