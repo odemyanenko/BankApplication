@@ -3,6 +3,7 @@ package com.example.bankapplication.entity;
 import com.example.bankapplication.entity.enums.AccountStatus;
 import com.example.bankapplication.entity.enums.AccountType;
 import com.example.bankapplication.entity.enums.CurrencyCode;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -42,7 +43,7 @@ public class Account {
   private BigDecimal balance;
 
   @Column(name = "currency_code", nullable = false)
-  @Enumerated(EnumType.STRING)
+  @Enumerated(EnumType.ORDINAL)
   private CurrencyCode currencyCode;
 
   @Column(name = "created_at", nullable = false)
@@ -56,14 +57,17 @@ public class Account {
           foreignKey = @ForeignKey(name = "FK_ACCOUNTS_CLIENTS_CLIENT_ID"))
   private Client client;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "account", fetch = FetchType.LAZY,
           cascade = {MERGE, PERSIST, REFRESH})
   private Set<Agreement> agreements;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "debitAccount", fetch = FetchType.LAZY,
           cascade = {MERGE, PERSIST, REFRESH})
   private Set<Transaction> debitTransactions;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "creditAccount", fetch = FetchType.LAZY,
           cascade = {MERGE, PERSIST, REFRESH})
   private Set<Transaction> creditTransactions;

@@ -1,7 +1,7 @@
 package com.example.bankapplication.controller;
 
-import com.example.bankapplication.entity.Account;
-import com.example.bankapplication.service.AccountService;
+import com.example.bankapplication.entity.Agreement;
+import com.example.bankapplication.service.AgreementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,13 +12,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("auth/accounts")
+@RequestMapping("auth/agreements")
 @RequiredArgsConstructor
-public class AccountController {
-  private final AccountService accountService;
+public class AgreementController {
+  private final AgreementService agreementService;
 
   @GetMapping("/{id}")
-  public Optional<Account> getAccountById(@PathVariable("id") UUID id){
-    return accountService.findById(id);
+  public Optional<Agreement> getAgreementId(@PathVariable("id") UUID id) {
+    return agreementService.findById(id);
   }
 }

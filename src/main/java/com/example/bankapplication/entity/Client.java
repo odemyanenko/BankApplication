@@ -1,6 +1,7 @@
 package com.example.bankapplication.entity;
 
 import com.example.bankapplication.entity.enums.ClientStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -57,6 +58,7 @@ public class Client {
           foreignKey = @ForeignKey(name = "FK_CLIENTS_MANAGERS_MANAGER_ID"))
   private Manager manager;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "client", fetch = FetchType.LAZY,
           orphanRemoval = true, cascade = {MERGE, PERSIST, REFRESH})
   private Set<Account> accounts;
