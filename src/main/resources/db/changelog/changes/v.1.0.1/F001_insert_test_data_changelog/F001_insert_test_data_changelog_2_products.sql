@@ -1,11 +1,18 @@
-SET @AtDate = current_timestamp;
+DO $$
+    DECLARE
+        AtDate TIMESTAMP := CURRENT_TIMESTAMP;
+        Manager1 UUID;
+        Manager2 UUID;
+        Manager3 UUID;
+    BEGIN
+        SELECT id INTO Manager1 FROM managers WHERE last_name = 'Demyanenko';
+        SELECT id INTO Manager2 FROM managers WHERE last_name = 'Petrov';
+        SELECT id INTO Manager3 FROM managers WHERE last_name = 'Semenov';
 
-SET @Manager1 = (SELECT id FROM managers WHERE last_name = 'Demyanenko');
-SET @Manager2 = (SELECT id FROM managers WHERE last_name = 'Petrov');
-SET @Manager3 = (SELECT id FROM managers WHERE last_name = 'Semenov');
-
-INSERT INTO products (id, manager_id, name, status, currency_code, interest_rate, limit_amount, created_at, updated_at)
-VALUES
-  (RANDOM_UUID(), @Manager1, 'Current Account', 0, 0, 2.0, 1000.0, @AtDate, @AtDate),
-  (RANDOM_UUID(), @Manager2, 'Mortgage', 0, 0, 7.3, 13000.0, @AtDate, @AtDate),
-  (RANDOM_UUID(), @Manager3, 'Credit', 0, 0, 18.0, 5000.0, @AtDate, @AtDate);
+        INSERT INTO products (id, manager_id, name, status, currency_code, interest_rate, limit_amount, created_at, updated_at)
+        VALUES
+            (GEN_RANDOM_UUID(), Manager1, 'Current Account', 'ACTIVE', 'EUR', 2.0, 1000.0, AtDate, AtDate),
+            (GEN_RANDOM_UUID(), Manager2, 'Mortgage', 'ACTIVE', 'EUR', 7.3, 13000.0, AtDate, AtDate),
+            (GEN_RANDOM_UUID(), Manager3, 'Credit', 'ACTIVE', 'USD', 18.0, 5000.0, AtDate, AtDate),
+            (GEN_RANDOM_UUID(), Manager3, 'Business Credit', 'INACTIVE', 'USD', 18.0, 20000.0, AtDate, AtDate);
+    END $$;

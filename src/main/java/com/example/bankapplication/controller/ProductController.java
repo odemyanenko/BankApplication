@@ -1,5 +1,7 @@
 package com.example.bankapplication.controller;
 
+import com.example.bankapplication.dto.ProductDto;
+import com.example.bankapplication.dto.ProductInfoDto;
 import com.example.bankapplication.entity.Product;
 import com.example.bankapplication.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +22,19 @@ public class ProductController {
   private final ProductService productService;
 
   @GetMapping("/{id}")
-  public ResponseEntity<Product> getProductId(@PathVariable("id") UUID id) {
-    Optional<Product> productOptional = productService.findById(id);
+  public ResponseEntity<ProductDto> getProductById(@PathVariable("id") UUID id) {
+    Optional<ProductDto> productOptional = productService.findById(id);
+
+    if (productOptional.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    } else {
+      return ResponseEntity.ok(productOptional.get());
+    }
+  }
+
+  @GetMapping("/{id}/full")
+  public ResponseEntity<ProductInfoDto> getProductInfoById(@PathVariable("id") UUID id) {
+    Optional<ProductInfoDto> productOptional = productService.findInfoById(id);
 
     if (productOptional.isEmpty()) {
       return ResponseEntity.notFound().build();

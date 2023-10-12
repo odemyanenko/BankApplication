@@ -1,2 +1,23 @@
 26/09/2023
 https://mapstruct.org/documentation/stable/reference/html/#introduction
+05/10/2023
+/swagger-ui/index.html#/
+http://localhost:8080/swagger-ui/index.html#/
+<dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.2.0</version>
+</dependency>
+
+
+CRUD::
+Account || getAllAccountWhereStatusIs Active/Remote/Pending/Blocked  findAccountsWhereProductIdIs....AndStatusIs.....
+Agreement || findAgreementsWhereManagerIDIs...  findAgreementsWhereClientIdIs....
+Client || getAllClientsWhereStatusActive....  getAllClientsWhereBalanceMoreThan..... getAllClientsWhereTransactionMoreThan.....
+Manager || findAllManagersSortedByProductQuantity
+Product || findAllProductsWhereAgreementsQuantityMoreThan....   findAllChangedProducts
+Transaction || findAllTransactionsWhereClientIdIs...   findAllTransactionsWhereAccountCurrencyIs...
+
+11/10/2023
+MapStruct tests
+https://javarush.com/groups/posts/3698-chto-takoe-mapstruct-i-kak-praviljhno-nastroitjh-ego-dlja-moduljhnogo-testirovanija-v-springboo

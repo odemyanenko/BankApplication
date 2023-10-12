@@ -31,7 +31,7 @@ public class Product {
   private String name;//Enum от может следать... ипотека, вклад, текущий счет...
 
   @Column(name = "currency_code", nullable = false)
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private CurrencyCode currencyCode;
 
   @Column(name = "interest_rate", nullable = false)
@@ -41,7 +41,7 @@ public class Product {
   private BigDecimal limitAmount;
 
   @Column(name = "status", nullable = false)
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private ProductStatus status;
 
   @Column(name = "created_at", nullable = false)
