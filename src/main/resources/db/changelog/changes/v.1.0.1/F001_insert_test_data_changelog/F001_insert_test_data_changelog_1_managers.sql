@@ -1,7 +1,9 @@
-SET @AtDate = current_timestamp;
-
-INSERT INTO managers (id, first_name, last_name, status, created_at, updated_at)
-VALUES
-  (RANDOM_UUID(), 'Olga', 'Demyanenko', 0, @AtDate, @AtDate),
-  (RANDOM_UUID(), 'Ivan', 'Petrov', 0, @AtDate, @AtDate),
-  (RANDOM_UUID(), 'Stepan', 'Semenov', 0, @AtDate, @AtDate);
+DO $$
+    DECLARE
+        AtDate TIMESTAMP := CURRENT_TIMESTAMP;
+BEGIN
+    INSERT INTO managers (id, first_name, last_name, created_at, updated_at)
+    VALUES (GEN_RANDOM_UUID(), 'Olga', 'Demyanenko', AtDate, AtDate),
+           (GEN_RANDOM_UUID(), 'Ivan', 'Petrov', AtDate, AtDate),
+           (GEN_RANDOM_UUID(), 'Stepan', 'Semenov', AtDate, AtDate);
+END $$;

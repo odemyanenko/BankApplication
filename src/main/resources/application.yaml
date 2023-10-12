@@ -2,33 +2,24 @@ spring:
   main:
     banner-mode: off
 
-  h2:
-    console.enabled: true
-
   datasource:
-#    url: jdbc:mysql://localhost:3306/bank
-#    username: root
-#    password: '!sqladmin'
     url: ${datasource.url}
     username: ${datasource.username}
     password: ${datasource.password}
-
-#  datasource:
-#    url: jdbc:h2:mem:bank_db
-#    username: sa
-#    password:
 
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/changelog-master.xml
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
     hibernate:
-#      ddl-auto: create
-#      ddl-auto: update
        ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
 
 #logging:
 #  level:
@@ -39,6 +30,3 @@ spring:
 
 server:
   port : 8081
-
-#app:
-#  url: ${app.server.url}

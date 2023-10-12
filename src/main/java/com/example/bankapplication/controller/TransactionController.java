@@ -17,7 +17,7 @@ public class TransactionController {
   private final TransactionService transactionService;
 
   @GetMapping("/{id}")
-  public ResponseEntity<Transaction> getTransactionId(@PathVariable("id") UUID id) {
+  public ResponseEntity<Transaction> getTransactionById(@PathVariable("id") UUID id) {
     Optional<Transaction> transactionOptional = transactionService.findById(id);
 
     if (transactionOptional.isPresent()) {
@@ -28,7 +28,7 @@ public class TransactionController {
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteTransactionId(@PathVariable("id") UUID id) {
+  public ResponseEntity<Void> deleteTransactionById(@PathVariable("id") UUID id) {
     boolean transactionDeleted = transactionService.deleteById(id);
 
     if (transactionDeleted) {

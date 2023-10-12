@@ -18,7 +18,7 @@ public class AgreementController {
   private final AgreementService agreementService;
 
   @GetMapping("/{id}")
-  public Optional<Agreement> getAgreementId(@PathVariable("id") UUID id) {
+  public Optional<Agreement> getAgreementById(@PathVariable("id") UUID id) {
     return agreementService.findById(id);
   }
 }
