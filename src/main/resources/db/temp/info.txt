@@ -1,5 +1,6 @@
 26/09/2023
 https://mapstruct.org/documentation/stable/reference/html/#introduction
+
 05/10/2023
 /swagger-ui/index.html#/
 http://localhost:8080/swagger-ui/index.html#/
@@ -9,6 +10,9 @@ http://localhost:8080/swagger-ui/index.html#/
             <version>2.2.0</version>
 </dependency>
 
+12/10/2023
+По этому поводу видео https://www.youtube.com/watch?v=gD8xUkZW1GU&t=1853s
+31 минута смотрите
 
 CRUD::
 Account || getAllAccountWhereStatusIs Active/Remote/Pending/Blocked  findAccountsWhereProductIdIs....AndStatusIs.....

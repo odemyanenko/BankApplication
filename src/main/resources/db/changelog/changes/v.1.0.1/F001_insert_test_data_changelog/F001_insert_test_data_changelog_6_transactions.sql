@@ -7,9 +7,9 @@ DO $$
             GEN_RANDOM_UUID(),
             a.id,
             (SELECT id FROM accounts WHERE client_id <> c.id LIMIT 1),
-            0,
+            'PAYMENT',
             100.0,
-            2,
+            'APPROVED',
             AtDate
         FROM
             accounts a
@@ -22,9 +22,9 @@ DO $$
             GEN_RANDOM_UUID(),
             a.id,
             (SELECT id FROM accounts WHERE client_id <> c.id LIMIT 1),
-            0,
+            'PAYMENT',
             200.0,
-            2,
+            'APPROVED',
             AtDate
         FROM
             accounts a
@@ -37,9 +37,9 @@ DO $$
             GEN_RANDOM_UUID(),
             a.id,
             (SELECT id FROM accounts WHERE client_id <> c.id LIMIT 1),
-            0,
+            'PAYMENT',
             300.0,
-            0,
+            'NEW',
             AtDate
         FROM
             accounts a
@@ -52,9 +52,9 @@ DO $$
             GEN_RANDOM_UUID(),
             a.id,
             (SELECT id FROM accounts WHERE client_id <> c.id LIMIT 1),
-            0,
+            'PAYMENT',
             400.0,
-            0,
+            'NEW',
             AtDate
         FROM
             accounts a
@@ -67,9 +67,9 @@ DO $$
             GEN_RANDOM_UUID(),
             a.id,
             (SELECT id FROM accounts WHERE client_id <> c.id LIMIT 1),
-            0,
+            'PAYMENT',
             500.0,
-            2,
+            'APPROVED',
             AtDate
         FROM
             accounts a

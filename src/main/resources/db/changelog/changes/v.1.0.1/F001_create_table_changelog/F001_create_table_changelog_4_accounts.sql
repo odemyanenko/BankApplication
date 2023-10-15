@@ -3,10 +3,10 @@ CREATE TABLE accounts
     id            UUID PRIMARY KEY,
     client_id     UUID         NOT NULL,
     name          VARCHAR(100) NOT NULL,
-    type          INT          NOT NULL,
+    type          VARCHAR(20)  NOT NULL,
     balance       DECIMAL(15, 2),
-    currency_code INT,
-    status        INT          NOT NULL,
+    currency_code VARCHAR(20),
+    status        VARCHAR(20)  NOT NULL,
     created_at    TIMESTAMP    NOT NULL,
     updated_at    TIMESTAMP
 )

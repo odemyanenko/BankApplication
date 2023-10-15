@@ -29,7 +29,7 @@ public class Agreement {
   private Double interestRate;// процентная ставка...
 
   @Column(name = "status", nullable = false)
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private AgreementStatus status;
 
   @Column(name = "total")
@@ -42,13 +42,11 @@ public class Agreement {
   private Timestamp updatedAt;
 
   @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
-  @JoinColumn(name = "account_id", referencedColumnName = "id",
-          foreignKey = @ForeignKey(name = "FK_AGREEMENTS_ACCOUNTS_ACCOUNT_ID"))
+  @JoinColumn(name = "account_id", referencedColumnName = "id")
   private Account account;
 
   @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
-  @JoinColumn(name = "product_id", referencedColumnName = "id",
-          foreignKey = @ForeignKey(name = "FK_AGREEMENTS_PRODUCTS_PRODUCT_ID"))
+  @JoinColumn(name = "product_id", referencedColumnName = "id")
   private Product product;
 
   @Override

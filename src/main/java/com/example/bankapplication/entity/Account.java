@@ -32,18 +32,18 @@ public class Account {
   private String name;
 
   @Column(name = "type", nullable = false)
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private AccountType type;
 
   @Column(name = "status", nullable = false)
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private AccountStatus status;
 
   @Column(name = "balance", nullable = false)
   private BigDecimal balance;
 
   @Column(name = "currency_code", nullable = false)
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private CurrencyCode currencyCode;
 
   @Column(name = "created_at", nullable = false)
@@ -53,8 +53,7 @@ public class Account {
   private Timestamp updatedAt;
 
   @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
-  @JoinColumn(name = "client_id", referencedColumnName = "id",
-          foreignKey = @ForeignKey(name = "FK_ACCOUNTS_CLIENTS_CLIENT_ID"))
+  @JoinColumn(name = "client_id", referencedColumnName = "id")
   private Client client;
 
   @JsonIgnore

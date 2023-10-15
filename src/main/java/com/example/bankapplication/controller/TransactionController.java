@@ -1,5 +1,6 @@
 package com.example.bankapplication.controller;
 
+import com.example.bankapplication.dto.TransactionDto;
 import com.example.bankapplication.entity.Transaction;
 import com.example.bankapplication.service.TransactionService;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +18,12 @@ public class TransactionController {
   private final TransactionService transactionService;
 
   @GetMapping("/{id}")
-  public ResponseEntity<Transaction> getTransactionById(@PathVariable("id") UUID id) {
-    Optional<Transaction> transactionOptional = transactionService.findById(id);
-
-    if (transactionOptional.isPresent()) {
-      return new ResponseEntity<>(transactionOptional.get(), HttpStatus.OK);
+  public ResponseEntity<TransactionDto> getTransactionById(@PathVariable("id") UUID id) {
+    Optional<TransactionDto> transactionOptional = transactionService.findById(id);
+    if (transactionOptional.isEmpty()) {
+      return ResponseEntity.notFound().build();
     } else {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return ResponseEntity.ok(transactionOptional.get());
     }
   }
 
@@ -32,9 +32,9 @@ public class TransactionController {
     boolean transactionDeleted = transactionService.deleteById(id);
 
     if (transactionDeleted) {
-      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      return ResponseEntity.noContent().build();
     } else {
-      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      return ResponseEntity.notFound().build();
     }
   }
 }

@@ -26,7 +26,7 @@ public class Transaction {
   private UUID id;
 
   @Column(name = "type", nullable = false)
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private TransactionType type;
 
   @Column(name = "amount", nullable = false)
@@ -36,20 +36,18 @@ public class Transaction {
   private String description;
 
   @Column(name = "status", nullable = false)
-  @Enumerated(EnumType.ORDINAL)
+  @Enumerated(EnumType.STRING)
   private TransactionStatus status;
 
   @Column(name = "created_at", nullable = false)
   private Timestamp createdAt;
 
   @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
-  @JoinColumn(name = "debit_account_id", referencedColumnName = "id",
-          foreignKey = @ForeignKey(name = "FK_TRANSACTIONS_ACCOUNTS_DEBIT_ACCOUNT_ID"))
+  @JoinColumn(name = "debit_account_id", referencedColumnName = "id")
   private Account debitAccount;// получатель
 
   @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
-  @JoinColumn(name = "credit_account_id", referencedColumnName = "id",
-          foreignKey = @ForeignKey(name = "FK_TRANSACTIONS_ACCOUNTS_CREDIT_ACCOUNT_ID"))
+  @JoinColumn(name = "credit_account_id", referencedColumnName = "id")
   private Account creditAccount;// отправитель
 
   @Override

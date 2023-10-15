@@ -1,8 +1,9 @@
 package com.example.bankapplication.controller;
 
-import com.example.bankapplication.entity.Account;
+import com.example.bankapplication.dto.AccountDto;
 import com.example.bankapplication.service.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,12 @@ public class AccountController {
   private final AccountService accountService;
 
   @GetMapping("/{id}")
-  public Optional<Account> getAccountById(@PathVariable("id") UUID id){
-    return accountService.findById(id);
+  public ResponseEntity<AccountDto> getAccountById(@PathVariable("id") UUID id){
+    Optional<AccountDto> accountOptional = accountService.findById(id);
+    if (accountOptional.isEmpty()){
+      return ResponseEntity.notFound().build();
+    } else {
+      return ResponseEntity.ok(accountOptional.get());
+    }
   }
 }

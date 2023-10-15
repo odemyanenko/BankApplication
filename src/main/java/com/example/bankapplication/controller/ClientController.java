@@ -1,8 +1,9 @@
 package com.example.bankapplication.controller;
 
-import com.example.bankapplication.entity.Client;
+import com.example.bankapplication.dto.ClientDto;
 import com.example.bankapplication.service.ClientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,13 @@ public class ClientController {
   private final ClientService clientService;
 
   @GetMapping("/{id}")
-  public Optional<Client> getClientById(@PathVariable("id") UUID id) {
-    return clientService.findById(id);
+  public ResponseEntity<ClientDto> getClientById(@PathVariable("id") UUID id) {
+    Optional<ClientDto> clientDtoOptional = clientService.findById(id);
+    if (clientDtoOptional.isPresent()) {
+      return ResponseEntity.ok(clientDtoOptional.get());
+    } else {
+      return ResponseEntity.notFound().build();
+    }
   }
 
 }

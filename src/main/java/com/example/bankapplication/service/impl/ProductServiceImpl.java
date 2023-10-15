@@ -5,6 +5,7 @@ import com.example.bankapplication.dto.ProductDto;
 import com.example.bankapplication.dto.ProductInfoDto;
 import com.example.bankapplication.entity.Manager;
 import com.example.bankapplication.entity.Product;
+import com.example.bankapplication.entity.enums.ProductStatus;
 import com.example.bankapplication.mapper.ManagerMapper;
 import com.example.bankapplication.mapper.ProductMapper;
 import com.example.bankapplication.repository.ManagerRepository;
@@ -45,7 +46,15 @@ public class ProductServiceImpl implements ProductService {
     }
   }
   @Override
-  public List<Product> getAllProducts() {
-    return productRepository.findAll();
+  public List<ProductDto> getAllProducts() {
+    List<Product> products = productRepository.findAll();
+    return productMapper.toDtoList(products);
+  }
+
+  @Override
+  public List<ProductDto> getAllProductsActive() {
+    //log.info("Get all active products");
+    List<Product> products = productRepository.getAllByStatus(ProductStatus.ACTIVE);
+    return productMapper.toDtoList(products);
   }
 }

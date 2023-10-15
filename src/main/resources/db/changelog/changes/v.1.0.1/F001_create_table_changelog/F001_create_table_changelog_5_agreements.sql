@@ -1,12 +1,12 @@
 CREATE TABLE agreements
 (
     id            UUID PRIMARY KEY,
-    account_id    UUID      NOT NULL,
-    product_id    UUID      NOT NULL,
+    account_id    UUID        NOT NULL,
+    product_id    UUID        NOT NULL,
     interest_rate DECIMAL(6, 2),
     total         DECIMAL(15, 2),
-    status        INT       NOT NULL,
-    created_at    TIMESTAMP NOT NULL,
+    status        VARCHAR(20) NOT NULL,
+    created_at    TIMESTAMP   NOT NULL,
     updated_at    TIMESTAMP
 )
 ;

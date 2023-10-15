@@ -8,7 +8,7 @@ DO $$
                p.id,
                0,
                0,
-               0,
+               'ACTIVE',
                AtDate,
                AtDate
         FROM accounts a
@@ -21,7 +21,7 @@ DO $$
                p.id,
                0,
                0,
-               0,
+               'ACTIVE',
                AtDate,
                AtDate
         FROM accounts a
@@ -34,7 +34,7 @@ DO $$
                p.id,
                0,
                0,
-               0,
+               'ACTIVE',
                AtDate,
                AtDate
         FROM accounts a
@@ -47,7 +47,7 @@ DO $$
                p.id,
                0,
                0,
-               0,
+               'ACTIVE',
                AtDate,
                AtDate
         FROM accounts a
@@ -60,7 +60,7 @@ DO $$
                p.id,
                0,
                0,
-               0,
+               'ACTIVE',
                AtDate,
                AtDate
         FROM accounts a

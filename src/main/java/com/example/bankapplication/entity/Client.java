@@ -43,8 +43,8 @@ public class Client {
   @Column(name = "phone", nullable = false, length = 20)
   private String phone;
 
-  @Column(name = "status", nullable = false)
-  @Enumerated(EnumType.ORDINAL)
+  @Column(name = "status", nullable = false, length = 20)
+  @Enumerated(EnumType.STRING)
   private ClientStatus status;
 
   @Column(name = "created_at", nullable = false)
@@ -54,8 +54,7 @@ public class Client {
   private Timestamp updatedAt;
 
   @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
-  @JoinColumn(name = "manager_id", referencedColumnName = "id",
-          foreignKey = @ForeignKey(name = "FK_CLIENTS_MANAGERS_MANAGER_ID"))
+  @JoinColumn(name = "manager_id", referencedColumnName = "id")
   private Manager manager;
 
   @JsonIgnore

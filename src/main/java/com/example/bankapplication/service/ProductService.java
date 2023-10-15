@@ -11,5 +11,6 @@ import java.util.UUID;
 public interface ProductService {
   Optional<ProductDto> findById(UUID id);
   Optional<ProductInfoDto> findInfoById(UUID id);
-  List<Product> getAllProducts();
+  List<ProductDto> getAllProducts();
+  List<ProductDto> getAllProductsActive();
 }

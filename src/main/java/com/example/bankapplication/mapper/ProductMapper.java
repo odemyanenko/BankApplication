@@ -6,6 +6,8 @@ import com.example.bankapplication.entity.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", uses = {ProductDto.class})
 public interface ProductMapper {
   ProductDto toDto(Product product);
@@ -15,7 +17,5 @@ public interface ProductMapper {
   @Mapping(source = "manager.firstName", target = "managerFirstName")
   ProductInfoDto toInfoDto(Product product);
 
-//  Product toEntity(ProductDto productDto);
-//
-//  List<ProductDto> toDtoList(List<Product> managers);
+  List<ProductDto> toDtoList(List<Product> products);
 }
