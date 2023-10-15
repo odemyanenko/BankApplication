@@ -1,13 +1,13 @@
 CREATE TABLE transactions
 (
     id                UUID PRIMARY KEY,
-    debit_account_id  UUID      NOT NULL,
-    credit_account_id UUID      NOT NULL,
-    type              INT,
+    debit_account_id  UUID        NOT NULL,
+    credit_account_id UUID        NOT NULL,
+    type              VARCHAR(20),
     amount            DECIMAL(15, 2),
     description       VARCHAR(266),
-    status            INT       NOT NULL,
-    created_at        TIMESTAMP NOT NULL
+    status            VARCHAR(20) NOT NULL,
+    created_at        TIMESTAMP   NOT NULL
 );
 
 ALTER TABLE transactions

@@ -8,7 +8,7 @@ CREATE TABLE clients
     address    VARCHAR(80),
     phone      VARCHAR(20),
     manager_id UUID        NOT NULL,
-    status     INT         NOT NULL,
+    status     VARCHAR(20) NOT NULL,
     created_at TIMESTAMP   NOT NULL,
     updated_at TIMESTAMP
 )

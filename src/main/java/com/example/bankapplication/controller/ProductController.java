@@ -44,8 +44,19 @@ public class ProductController {
   }
 
   @GetMapping("/all")
-  public ResponseEntity<List<Product>> getAllProducts() {
-    List<Product> products = productService.getAllProducts();
+  public ResponseEntity<List<ProductDto>> getAllProducts() {
+    List<ProductDto> products = productService.getAllProducts();
+
+    if (!products.isEmpty()) {
+      return ResponseEntity.ok(products);
+    } else {
+      return ResponseEntity.noContent().build();
+    }
+  }
+
+  @GetMapping("/all-active")
+  public ResponseEntity<List<ProductDto>> getAllProductsActive() {
+    List<ProductDto> products = productService.getAllProductsActive();
 
     if (!products.isEmpty()) {
       return ResponseEntity.ok(products);

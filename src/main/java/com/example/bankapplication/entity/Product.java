@@ -51,8 +51,7 @@ public class Product {
   private Timestamp updatedAt;
 
   @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
-  @JoinColumn(name = "manager_id", referencedColumnName = "id",
-          foreignKey = @ForeignKey(name = "FK_PRODUCTS_MANAGERS_MANAGER_ID"))
+  @JoinColumn(name = "manager_id", referencedColumnName = "id")
   private Manager manager;
 
   @JsonIgnore
