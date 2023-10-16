@@ -2,7 +2,6 @@ package com.example.bankapplication.controller;
 
 import com.example.bankapplication.dto.ProductDto;
 import com.example.bankapplication.dto.ProductInfoDto;
-import com.example.bankapplication.entity.Product;
 import com.example.bankapplication.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -23,24 +21,14 @@ public class ProductController {
 
   @GetMapping("/{id}")
   public ResponseEntity<ProductDto> getProductById(@PathVariable("id") UUID id) {
-    Optional<ProductDto> productOptional = productService.findById(id);
-
-    if (productOptional.isEmpty()) {
-      return ResponseEntity.notFound().build();
-    } else {
-      return ResponseEntity.ok(productOptional.get());
-    }
+    ProductDto productDto = productService.findById(id);
+    return ResponseEntity.ok(productDto);
   }
 
   @GetMapping("/{id}/full")
   public ResponseEntity<ProductInfoDto> getProductInfoById(@PathVariable("id") UUID id) {
-    Optional<ProductInfoDto> productOptional = productService.findInfoById(id);
-
-    if (productOptional.isEmpty()) {
-      return ResponseEntity.notFound().build();
-    } else {
-      return ResponseEntity.ok(productOptional.get());
-    }
+    ProductInfoDto productInfoDto = productService.findInfoById(id);
+    return ResponseEntity.ok(productInfoDto);
   }
 
   @GetMapping("/all")

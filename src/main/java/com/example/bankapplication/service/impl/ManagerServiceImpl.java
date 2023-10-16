@@ -2,6 +2,8 @@ package com.example.bankapplication.service.impl;
 
 import com.example.bankapplication.dto.ManagerDto;
 import com.example.bankapplication.entity.Manager;
+import com.example.bankapplication.exception.ErrorMessage;
+import com.example.bankapplication.exception.ResourceNotFoundException;
 import com.example.bankapplication.mapper.ManagerMapper;
 import com.example.bankapplication.repository.ManagerRepository;
 import com.example.bankapplication.service.ManagerService;
@@ -20,19 +22,12 @@ public class ManagerServiceImpl implements ManagerService {
   private final ManagerMapper managerMapper;
 
   @Override
-  public Optional<Manager> findById(UUID id) {
-    return managerRepository.findById(id);
-  }
-
-  @Override
-  public Optional<ManagerDto> findInfoById(UUID id) {
+  public ManagerDto findById(UUID id) {
     Optional<Manager> managerOptional = managerRepository.findById(id);
-    if (managerOptional.isPresent()) {
-      ManagerDto managerDto = managerMapper.toDto(managerOptional.get());
-      return Optional.of(managerDto);
-    } else {
-      return Optional.empty();
-    }
+    Manager manager = managerOptional.orElseThrow(() ->
+            new ResourceNotFoundException(ErrorMessage.MANAGER_NOT_FOUND));
+
+    return managerMapper.toDto(manager);
   }
 
   @Override

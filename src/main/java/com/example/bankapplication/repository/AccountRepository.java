@@ -10,6 +10,4 @@ import java.util.UUID;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, UUID> {
   Optional<Account> findById(UUID id);
-
-//  List<Account> getAllByActive(Boolean active);
 }

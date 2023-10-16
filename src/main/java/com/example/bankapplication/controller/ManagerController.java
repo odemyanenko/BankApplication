@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -20,24 +19,8 @@ public class ManagerController {
 
   @GetMapping("/{id}")
   public ResponseEntity<ManagerDto> getManagerInfoById(@PathVariable("id") UUID id){
-    Optional<ManagerDto> managerDtoOptional = managerService.findInfoById(id);
-
-    if (managerDtoOptional.isPresent()) {
-      return ResponseEntity.ok(managerDtoOptional.get());
-    } else {
-      return ResponseEntity.notFound().build();
-    }
-  }
-
-  @GetMapping("/{id}/admin")
-  public ResponseEntity<Manager> getManagerById(@PathVariable("id") UUID id){
-    Optional<Manager> managerOptional = managerService.findById(id);
-
-    if (managerOptional.isPresent()) {
-      return ResponseEntity.ok(managerOptional.get());
-    } else {
-      return ResponseEntity.notFound().build();
-    }
+    ManagerDto managerDto = managerService.findById(id);
+    return ResponseEntity.ok(managerDto);
   }
 
   @GetMapping("/all")

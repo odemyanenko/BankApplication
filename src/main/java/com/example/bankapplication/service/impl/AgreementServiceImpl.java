@@ -1,10 +1,9 @@
 package com.example.bankapplication.service.impl;
 
-import com.example.bankapplication.dto.AccountDto;
 import com.example.bankapplication.dto.AgreementDto;
-import com.example.bankapplication.entity.Account;
 import com.example.bankapplication.entity.Agreement;
-import com.example.bankapplication.entity.Manager;
+import com.example.bankapplication.exception.ErrorMessage;
+import com.example.bankapplication.exception.ResourceNotFoundException;
 import com.example.bankapplication.mapper.AgreementMapper;
 import com.example.bankapplication.repository.AgreementRepository;
 import com.example.bankapplication.service.AgreementService;
@@ -22,14 +21,12 @@ public class AgreementServiceImpl implements AgreementService {
   private final AgreementMapper agreementMapper;
 
   @Override
-  public Optional<AgreementDto> findById(UUID id) {
+  public AgreementDto findById(UUID id) {
     Optional<Agreement> agreementOptional = agreementRepository.findById(id);
-    if (agreementOptional.isPresent()) {
-      AgreementDto agreementDto = agreementMapper.toDto(agreementOptional.get());
-      return Optional.of(agreementDto);
-    } else {
-      return Optional.empty();
-    }
+    Agreement agreement = agreementOptional.orElseThrow(() ->
+            new ResourceNotFoundException(ErrorMessage.AGREEMENT_NOT_FOUND));
+
+    return agreementMapper.toDto(agreement);
   }
 
   @Override

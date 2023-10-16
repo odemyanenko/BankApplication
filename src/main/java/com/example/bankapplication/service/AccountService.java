@@ -1,11 +1,9 @@
 package com.example.bankapplication.service;
 
 import com.example.bankapplication.dto.AccountDto;
-import com.example.bankapplication.entity.Account;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public interface AccountService {
-  Optional<AccountDto> findById(UUID id);
+  AccountDto findById(UUID id);
 }
