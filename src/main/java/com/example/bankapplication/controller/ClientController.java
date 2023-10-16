@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -20,12 +19,8 @@ public class ClientController {
 
   @GetMapping("/{id}")
   public ResponseEntity<ClientDto> getClientById(@PathVariable("id") UUID id) {
-    Optional<ClientDto> clientDtoOptional = clientService.findById(id);
-    if (clientDtoOptional.isPresent()) {
-      return ResponseEntity.ok(clientDtoOptional.get());
-    } else {
-      return ResponseEntity.notFound().build();
-    }
+    ClientDto clientDto = clientService.findById(id);
+    return ResponseEntity.ok(clientDto);
   }
 
 }

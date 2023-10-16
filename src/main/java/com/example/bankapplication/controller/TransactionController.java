@@ -1,14 +1,11 @@
 package com.example.bankapplication.controller;
 
 import com.example.bankapplication.dto.TransactionDto;
-import com.example.bankapplication.entity.Transaction;
 import com.example.bankapplication.service.TransactionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -19,12 +16,8 @@ public class TransactionController {
 
   @GetMapping("/{id}")
   public ResponseEntity<TransactionDto> getTransactionById(@PathVariable("id") UUID id) {
-    Optional<TransactionDto> transactionOptional = transactionService.findById(id);
-    if (transactionOptional.isEmpty()) {
-      return ResponseEntity.notFound().build();
-    } else {
-      return ResponseEntity.ok(transactionOptional.get());
-    }
+    TransactionDto transactionDto = transactionService.findById(id);
+    return ResponseEntity.ok(transactionDto);
   }
 
   @DeleteMapping("/{id}")

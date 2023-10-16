@@ -1,7 +1,6 @@
 package com.example.bankapplication.controller;
 
 import com.example.bankapplication.dto.AgreementDto;
-import com.example.bankapplication.dto.ManagerDto;
 import com.example.bankapplication.service.AgreementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -22,12 +20,8 @@ public class AgreementController {
 
   @GetMapping("/{id}")
   public ResponseEntity<AgreementDto> getAgreementById(@PathVariable("id") UUID id) {
-    Optional<AgreementDto> agreementOptional = agreementService.findById(id);
-    if (agreementOptional.isEmpty()) {
-      return ResponseEntity.notFound().build();
-    } else {
-      return ResponseEntity.ok(agreementOptional.get());
-    }
+    AgreementDto agreementDto = agreementService.findById(id);
+    return ResponseEntity.ok(agreementDto);
   }
   @GetMapping("all-manager/{id}")
   public ResponseEntity<List<AgreementDto>> getAgreementByProductManagerId(@PathVariable("id") UUID id){

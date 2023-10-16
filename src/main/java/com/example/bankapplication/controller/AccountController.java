@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -19,12 +18,8 @@ public class AccountController {
   private final AccountService accountService;
 
   @GetMapping("/{id}")
-  public ResponseEntity<AccountDto> getAccountById(@PathVariable("id") UUID id){
-    Optional<AccountDto> accountOptional = accountService.findById(id);
-    if (accountOptional.isEmpty()){
-      return ResponseEntity.notFound().build();
-    } else {
-      return ResponseEntity.ok(accountOptional.get());
-    }
+  public ResponseEntity<AccountDto> getAccountById(@PathVariable("id") UUID id) {
+    AccountDto accountDto = accountService.findById(id);
+    return ResponseEntity.ok(accountDto);
   }
 }
