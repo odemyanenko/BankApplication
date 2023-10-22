@@ -21,6 +21,9 @@ spring:
           lob:
             non_contextual_creation: true
 
+logging:
+  level:
+    web: debug
 #logging:
 #  level:
 #    org.springframework.web: debug
