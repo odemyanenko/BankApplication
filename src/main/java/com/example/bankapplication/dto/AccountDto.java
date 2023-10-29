@@ -2,8 +2,10 @@ package com.example.bankapplication.dto;
 
 import lombok.Value;
 
+import java.io.Serializable;
+
 @Value
-public class AccountDto {
+public class AccountDto{
   String id;
   String name;
   String type;

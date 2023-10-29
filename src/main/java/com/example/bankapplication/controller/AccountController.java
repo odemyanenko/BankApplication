@@ -1,10 +1,10 @@
 package com.example.bankapplication.controller;
 
 import com.example.bankapplication.dto.AccountDto;
+import com.example.bankapplication.entity.enums.AccountStatus;
 import com.example.bankapplication.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -42,5 +42,22 @@ public class AccountController {
           @PathVariable("id") UUID id) {
     AccountDto accountDto = accountService.findById(id);
     return ResponseEntity.ok(accountDto);
+  }
+
+  @Operation(summary = "Get account list", description = "Get account list details")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "Successfully retrieved data", content = @Content(schema = @Schema(implementation = AccountDto.class))),
+          @ApiResponse(responseCode = "400", description = "Not resolving method argument", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  })
+  @GetMapping("/all/{status}")
+  public ResponseEntity<List<AccountDto>> getAllByStatus(
+          @Parameter(
+                  description = "Status of the account",
+                  required = true
+          )
+          @PathVariable AccountStatus status){
+    List<AccountDto> accountDtoList = accountService.getAllByStatus(status);
+
+    return ResponseEntity.ok(accountDtoList);
   }
 }
