@@ -136,10 +136,11 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>com/**/entity/*</exclude>
                         <exclude>com/**/aspect/*</exclude>
-                        <exclude>com/**/util/*</exclude>
-                        <exclude>com/**/enums/*</exclude>
+                        <exclude>com/**/config/*</exclude>
+                        <exclude>com/**/dto/*</exclude>
+                        <exclude>com/**/entity/*</exclude>
+                        <exclude>com/**/entity/enums/*</exclude>
                         <exclude>com/**/exception/*</exclude>
                         <exclude>com/**/BankApplication.class</exclude>
                     </excludes>
