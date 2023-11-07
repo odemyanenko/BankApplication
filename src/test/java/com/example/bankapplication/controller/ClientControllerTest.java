@@ -37,7 +37,7 @@ class ClientControllerTest {
   @Test
   void getClientById() throws Exception {
     //given
-    ClientDto clientDto = getClientDto();
+    ClientDto clientDto = getClientDto(UUID.randomUUID());
     UUID clientId = UUID.fromString(clientDto.getId());
 
     //when
