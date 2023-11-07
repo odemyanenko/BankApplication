@@ -2,6 +2,7 @@ package com.example.bankapplication.entity;
 
 import com.example.bankapplication.entity.enums.TransactionStatus;
 import com.example.bankapplication.entity.enums.TransactionType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -42,10 +43,12 @@ public class Transaction {
   @Column(name = "created_at", nullable = false)
   private Timestamp createdAt;
 
+  @JsonIgnore
   @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
   @JoinColumn(name = "debit_account_id", referencedColumnName = "id")
   private Account debitAccount;// получатель
 
+  @JsonIgnore
   @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
   @JoinColumn(name = "credit_account_id", referencedColumnName = "id")
   private Account creditAccount;// отправитель

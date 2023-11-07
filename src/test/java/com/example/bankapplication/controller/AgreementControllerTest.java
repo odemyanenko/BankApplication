@@ -25,10 +25,8 @@ import static util.DtoCreator.getAgreementDto;
 @DisplayName("Agreement controller test class")
 @WebMvcTest(AgreementController.class)
 class AgreementControllerTest {
-
   @MockBean
   private AgreementService agreementService;
-
   @Autowired
   private MockMvc mockMvc;
 
@@ -66,5 +64,10 @@ class AgreementControllerTest {
             .andExpect(jsonPath("$.statusCode").exists())
             .andExpect(jsonPath("$.statusCode").value(HttpStatus.NOT_FOUND.value()))
             .andExpect(jsonPath("$.message").value(ErrorMessage.AGREEMENT_NOT_FOUND));
+  }
+
+  @DisplayName("Positive test. Get Agreement by Manager Id")
+  @Test
+  void getAgreementByProductManagerIdTest() {
   }
 }
