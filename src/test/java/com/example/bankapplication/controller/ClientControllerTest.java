@@ -20,13 +20,11 @@ import util.JsonUtil;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static util.DtoCreator.getClientDto;
 
 @DisplayName("Client controller test class")
 @WebMvcTest(ClientController.class)
 class ClientControllerTest {
-
   @MockBean
   private ClientService clientService;
 

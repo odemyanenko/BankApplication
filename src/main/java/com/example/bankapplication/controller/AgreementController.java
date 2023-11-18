@@ -1,6 +1,7 @@
 package com.example.bankapplication.controller;
 
 import com.example.bankapplication.dto.AgreementDto;
+import com.example.bankapplication.dto.ProductInfoDto;
 import com.example.bankapplication.service.AgreementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -45,6 +46,10 @@ public class AgreementController {
   }
 
   @Operation(summary = "Get agreements list by Manager ID", description = "Get agreements list by their manager unique ID")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "Successfully retrieved data", content = @Content(schema = @Schema(implementation = AgreementDto.class))),
+          @ApiResponse(responseCode = "204", description = "Empty List", content = @Content(schema = @Schema(implementation = AgreementDto.class)))
+  })
   @GetMapping("all-manager/{id}")
   public ResponseEntity<List<AgreementDto>> getAgreementByProductManagerId(
           @Parameter(
@@ -54,7 +59,12 @@ public class AgreementController {
           )
           @PathVariable("id") UUID id) {
     List<AgreementDto> agreementDtoList = agreementService.findByProductManagerId(id);
-    return ResponseEntity.ok(agreementDtoList);
+
+    if (!agreementDtoList.isEmpty()) {
+      return ResponseEntity.ok(agreementDtoList);
+    } else {
+      return ResponseEntity.noContent().build();
+    }
   }
 
 }

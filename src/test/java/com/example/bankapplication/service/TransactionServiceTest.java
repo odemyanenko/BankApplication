@@ -57,7 +57,7 @@ class TransactionServiceTest {
     //then
     Assertions.assertEquals(transaction.getId().toString(), findTransactionDto.getId());
     Assertions.assertEquals(transaction.getCreditAccount().getName(), findTransactionDto.getCreditAccountName());
-    Assertions.assertEquals(transaction.getCreditAccount().getName(), findTransactionDto.getCreditAccountName());
+    Assertions.assertEquals(transaction.getDebitAccount().getName(), findTransactionDto.getDebitAccountName());
   }
 
   @DisplayName("Positive test. Delete Transaction by Id.")
