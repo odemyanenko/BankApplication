@@ -29,7 +29,6 @@ import java.util.UUID;
 public class ProductController {
   private final ProductService productService;
 
-
   @Operation(summary = "Get product by ID", description = "Get product details by their unique ID")
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "Successfully retrieved data", content = @Content(schema = @Schema(implementation = ProductDto.class))),
@@ -47,7 +46,7 @@ public class ProductController {
     return ResponseEntity.ok(productDto);
   }
 
-  @Operation(summary = "Get manager by ID", description = "Get manager full details by their unique ID")
+  @Operation(summary = "Get product by ID", description = "Get product full details by their unique ID")
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "Successfully retrieved data", content = @Content(schema = @Schema(implementation = ProductInfoDto.class))),
           @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
@@ -65,6 +64,10 @@ public class ProductController {
   }
 
   @Operation(summary = "Get product list", description = "Get product list details")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "Successfully retrieved data", content = @Content(schema = @Schema(implementation = ProductInfoDto.class))),
+          @ApiResponse(responseCode = "204", description = "ResourceListEmptyException", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  })
   @GetMapping("/all")
   public ResponseEntity<List<ProductDto>> getAllProducts() {
     List<ProductDto> products = productService.getAllProducts();
@@ -77,6 +80,10 @@ public class ProductController {
   }
 
   @Operation(summary = "Get product list", description = "Get product list details with status = ACTIVE")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "Successfully retrieved data", content = @Content(schema = @Schema(implementation = ProductInfoDto.class))),
+          @ApiResponse(responseCode = "204", description = "ResourceListEmptyException", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  })
   @GetMapping("/all-active")
   public ResponseEntity<List<ProductDto>> getAllProductsActive() {
     List<ProductDto> products = productService.getAllProductsActive();
@@ -87,4 +94,5 @@ public class ProductController {
       return ResponseEntity.noContent().build();
     }
   }
+
 }

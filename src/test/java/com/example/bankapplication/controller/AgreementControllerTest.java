@@ -17,6 +17,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import util.JsonUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -25,6 +28,7 @@ import static util.DtoCreator.getAgreementDto;
 @DisplayName("Agreement controller test class")
 @WebMvcTest(AgreementController.class)
 class AgreementControllerTest {
+  private final String URL_BASE = "/auth/agreements";
   @MockBean
   private AgreementService agreementService;
   @Autowired
@@ -34,14 +38,14 @@ class AgreementControllerTest {
   @Test
   void getAgreementById() throws Exception {
     //given
-    AgreementDto agreementDto = getAgreementDto();
-    UUID agreementId = UUID.fromString(agreementDto.getId());
+    UUID agreementId = UUID.randomUUID();
+    AgreementDto agreementDto = getAgreementDto(agreementId);
 
     //when
     Mockito.when(agreementService.findById(agreementId)).thenReturn(agreementDto);
 
     //then
-    mockMvc.perform(MockMvcRequestBuilders.get("/auth/agreements/{id}", agreementId))
+    mockMvc.perform(MockMvcRequestBuilders.get(URL_BASE + "/{id}", agreementId))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.content().json(JsonUtil.asJsonString(agreementDto)));
@@ -58,7 +62,7 @@ class AgreementControllerTest {
             .thenThrow(new ResourceNotFoundException(ErrorMessage.AGREEMENT_NOT_FOUND));
 
     //then
-    mockMvc.perform(MockMvcRequestBuilders.get("/auth/agreements/{id}", noExistsAgreementId))
+    mockMvc.perform(MockMvcRequestBuilders.get(URL_BASE + "/{id}", noExistsAgreementId))
             .andExpect(status().isNotFound())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.statusCode").exists())
@@ -66,8 +70,40 @@ class AgreementControllerTest {
             .andExpect(jsonPath("$.message").value(ErrorMessage.AGREEMENT_NOT_FOUND));
   }
 
-  @DisplayName("Positive test. Get Agreement by Manager Id")
+  @DisplayName("Positive test. Get Agreements by ManagerId")
   @Test
-  void getAgreementByProductManagerIdTest() {
+  void getAgreementByProductManagerIdTest() throws Exception {
+    //given
+    UUID managerId = UUID.randomUUID();
+    AgreementDto agreementDto = getAgreementDto(UUID.randomUUID());
+    List<AgreementDto> agreementDtoList = Collections.singletonList(agreementDto);
+
+    //when
+    Mockito.when(agreementService.findByProductManagerId(managerId)).thenReturn(agreementDtoList);
+
+    //then
+    mockMvc.perform(MockMvcRequestBuilders.get(URL_BASE + "/all-manager/{id}", managerId))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.content().json(JsonUtil.asJsonString(agreementDtoList)));
+    Mockito.verify(agreementService, Mockito.times(1)).findByProductManagerId(managerId);
   }
+
+  @DisplayName("Negative test. Get Agreements by ManagerId. Empty List")
+  @Test
+  void getProductEmptyListTest() throws Exception {
+    //given
+    UUID managerId = UUID.randomUUID();
+    List<AgreementDto> agreementEmptyDtoList = new ArrayList<>();
+
+    //when
+    Mockito.when(agreementService.findByProductManagerId(managerId))
+            .thenReturn(agreementEmptyDtoList);
+
+    //then
+    mockMvc.perform(MockMvcRequestBuilders.get(URL_BASE + "/all-manager/{id}", managerId))
+            .andExpect(status().isNoContent());
+    Mockito.verify(agreementService, Mockito.times(1)).findByProductManagerId(managerId);
+  }
+
 }

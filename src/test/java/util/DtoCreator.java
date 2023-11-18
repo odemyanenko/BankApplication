@@ -4,10 +4,10 @@ import com.example.bankapplication.dto.*;
 import com.example.bankapplication.entity.enums.*;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import static util.TimeUtil.getCurrentDateTime;
-
 public class DtoCreator {
   public static AccountDto getAccountDto(UUID id) {
     return new AccountDto(
@@ -27,9 +27,9 @@ public class DtoCreator {
             BigDecimal.valueOf(5000.0).toString());
   }
 
-  public static AgreementDto getAgreementDto() {
+  public static AgreementDto getAgreementDto(UUID id) {
     return new AgreementDto(
-            UUID.randomUUID().toString(),
+            id.toString(),
             Double.toString(4.2),
             AgreementStatus.ACTIVE.toString(),
             BigDecimal.valueOf(20000.0).toString(),
@@ -50,7 +50,7 @@ public class DtoCreator {
     );
   }
 
-  public static TransactionDto getTransactionDto(UUID id){
+  public static TransactionDto getTransactionDto(UUID id) {
     return new TransactionDto(
             id.toString(),
             TransactionType.CASH.toString(),
@@ -62,7 +62,7 @@ public class DtoCreator {
     );
   }
 
-  public static ProductDto getProductDto(UUID id){
+  public static ProductDto getProductDto(UUID id) {
     return new ProductDto(
             id.toString(),
             "Mortgage",
@@ -70,6 +70,31 @@ public class DtoCreator {
             Double.valueOf(7.3).toString(),
             BigDecimal.valueOf(13000.0).toString(),
             ProductStatus.ACTIVE.toString()
+    );
+  }
+
+  public static ProductInfoDto getProductInfoDto(UUID id, UUID manager_id) {
+    return new ProductInfoDto(
+            id.toString(),
+            "Mortgage",
+            CurrencyCode.EUR.toString(),
+            Double.valueOf(7.3).toString(),
+            BigDecimal.valueOf(13000.0).toString(),
+            ProductStatus.ACTIVE.toString(),
+            getCurrentDateTime().toString(),
+            getCurrentDateTime().toString(),
+
+            manager_id.toString(),
+            "Ivan",
+            "Petrov"
+    );
+  }
+
+  public static ManagerDto getManagerDto(UUID id){
+    return new ManagerDto(
+            id.toString(),
+            "Petrov",
+            "Ivan"
     );
   }
 

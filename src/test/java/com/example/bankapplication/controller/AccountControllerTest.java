@@ -5,9 +5,8 @@ import com.example.bankapplication.entity.enums.AccountStatus;
 import com.example.bankapplication.exception.ErrorMessage;
 import com.example.bankapplication.exception.ResourceListEmptyException;
 import com.example.bankapplication.exception.ResourceNotFoundException;
-import com.example.bankapplication.mapper.AccountMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.bankapplication.service.AccountService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -103,9 +102,7 @@ class AccountControllerTest {
   @Test
   void getAccountEmptyListByStatusWithExceptionTest() throws Exception {
     //given
-    AccountDto accountDto = getAccountDto(UUID.randomUUID());
     AccountStatus status = AccountStatus.INACTIVE;
-    List<AccountDto> accountDtoList = Collections.singletonList(accountDto);
 
     //when
     Mockito.when(accountService.getAllByStatus(status))

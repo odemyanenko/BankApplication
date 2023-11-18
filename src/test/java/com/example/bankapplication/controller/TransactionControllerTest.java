@@ -71,7 +71,7 @@ class TransactionControllerTest {
             .andExpect(jsonPath("$.message").value(ErrorMessage.TRANSACTION_NOT_FOUND));
   }
 
-  @DisplayName("Negative test. Delete Transaction with not exists id.")
+  @DisplayName("Negative test. Delete Transaction by Id. Not Found")
   @Test
   void deleteTransactionWithNotFoundStatusTest() throws Exception {
     //given
@@ -85,7 +85,7 @@ class TransactionControllerTest {
             .andExpect(status().isNotFound());
   }
 
-  @DisplayName("Positive test. Delete Transaction with exists id.")
+  @DisplayName("Positive test. Delete Transaction by Id")
   @Test
   void deleteTransactionWithNoContentStatusTest() throws Exception {
     //given

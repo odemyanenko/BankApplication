@@ -42,6 +42,10 @@ public class TransactionController {
   }
 
   @Operation(summary = "Delete transaction by ID", description = "Delete transaction by their unique ID")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "204", description = "Successfully deleted"),
+          @ApiResponse(responseCode = "404", description = "Resource not found")
+  })
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteTransactionById(
           @Parameter(

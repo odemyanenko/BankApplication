@@ -49,8 +49,8 @@ class AccountMapperTest {
     //then
     assertNull(actual.getId());
     assertNull(actual.getType());
-    assertNull(account.getStatus());
-    assertNull(account.getBalance());
+    assertNull(actual.getStatus());
+    assertNull(actual.getBalance());
   }
 
   @DisplayName("Negative test. Null mapper to DTO test")

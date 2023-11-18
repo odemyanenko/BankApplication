@@ -11,9 +11,7 @@ public class ProductInfoDto {
   String interestRate;
   String limitAmount;
   String status;
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
   String createdAt;
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "UTC")
   String updatedAt;
 
   String managerId;

@@ -38,6 +38,9 @@ public class ManagerController {
   }
 
   @Operation(summary = "Get manager list", description = "Get manager list details")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "Successfully retrieved data", content = @Content(schema = @Schema(implementation = List.class))),
+  })
   @GetMapping("/all")
   public ResponseEntity<List<ManagerDto>> getAllInfo(){
     List<ManagerDto> managerDtoList = managerService.getInfoAll();
@@ -46,6 +49,9 @@ public class ManagerController {
   }
 
   @Operation(summary = "Get manager detail list", description = "Get manager list with all details")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "Successfully retrieved data", content = @Content(schema = @Schema(implementation = List.class))),
+  })
   @GetMapping("/all/admin")
   public ResponseEntity<List<Manager>> getAll(){
     List<Manager> managerList = managerService.getAll();
@@ -54,6 +60,9 @@ public class ManagerController {
   }
 
   @Operation(summary = "Create manager", description = "This method must be used to create new manager in the system")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "Successfully created data", content = @Content(schema = @Schema(implementation = ManagerDto.class))),
+  })
   @PostMapping
   public ResponseEntity<ManagerDto> createManager(@RequestBody ManagerDto managerDto) {
     ManagerDto createdManagerDto = managerService.create(managerDto);
@@ -62,6 +71,10 @@ public class ManagerController {
   }
 
   @Operation(summary = "Update manager", description = "This method must be used to update existing manager in the system")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "Successfully created data", content = @Content(schema = @Schema(implementation = ManagerDto.class))),
+          @ApiResponse(responseCode = "404", description = "Resource not found")
+  })
   @PutMapping("/{id}")
   public ResponseEntity<ManagerDto> updateManager(@PathVariable UUID id, @RequestBody ManagerDto managerDto) {
     ManagerDto updatedManager = managerService.update(id, managerDto);

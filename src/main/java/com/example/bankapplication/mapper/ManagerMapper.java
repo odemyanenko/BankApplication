@@ -32,5 +32,7 @@ public interface ManagerMapper {
   @Mapping(target = "createdAt", ignore = true)
   @Mapping(target = "clients", ignore = true)
   @Mapping(target = "products", ignore = true)
-  void updateManager(@MappingTarget Manager target, ManagerDto input);
+  @Mapping(target = "status", ignore = true)
+  @Mapping(target = "updatedAt", expression = "java(getCurrentTime())")
+  Manager update(@MappingTarget Manager target, ManagerDto input);
 }
