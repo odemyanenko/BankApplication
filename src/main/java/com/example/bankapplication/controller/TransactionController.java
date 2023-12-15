@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("auth/transactions")
+@RequestMapping("/transactions")
 @Tag(name = "Transaction Management", description = "Endpoints for transaction management")
 @RequiredArgsConstructor
 public class TransactionController {

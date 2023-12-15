@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("auth/clients")
+@RequestMapping("/clients")
 @Tag(name = "Client Management", description = "Endpoints for client management")
 @RequiredArgsConstructor
 public class ClientController {

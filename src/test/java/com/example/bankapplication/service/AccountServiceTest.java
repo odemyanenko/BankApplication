@@ -12,10 +12,12 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import util.DtoCreator;
 import util.EntityCreator;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -84,5 +86,19 @@ class AccountServiceTest {
   @Test
   void getAllByStatusWithResourceListEmptyExceptionTest() {
     Assertions.assertThrows(ResourceListEmptyException.class, () -> accountService.getAllByStatus(null));
+  }
+
+  @DisplayName("Positive test. Get Account Balance By id")
+  @Test
+  void getAccountBalanceTest() {
+    //given
+    when(accountRepository.getAccountBalance(account.getId())).thenReturn(account.getBalance());
+
+    //when
+    BigDecimal actualBalance = accountService.getAccountBalance(account.getId());
+
+    //then
+    Assertions.assertEquals(account.getBalance(), actualBalance);
+    Mockito.verify(accountRepository, Mockito.times(1)).getAccountBalance(account.getId());
   }
 }

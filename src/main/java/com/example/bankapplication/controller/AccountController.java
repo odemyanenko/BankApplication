@@ -13,16 +13,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("auth/accounts")
+@RequestMapping("/accounts")
 @Tag(name = "Account Management", description = "Endpoints for account management")
 @RequiredArgsConstructor
 public class AccountController {
@@ -60,4 +58,11 @@ public class AccountController {
 
     return ResponseEntity.ok(accountDtoList);
   }
+
+  @PostMapping("/create")
+  public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto){
+    AccountDto result = accountService.createAccount(accountDto);
+    return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
+  }
+
 }

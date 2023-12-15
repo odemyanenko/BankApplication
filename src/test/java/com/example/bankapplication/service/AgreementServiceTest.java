@@ -1,11 +1,7 @@
 package com.example.bankapplication.service;
 
-import com.example.bankapplication.dto.AccountDto;
 import com.example.bankapplication.dto.AgreementDto;
-import com.example.bankapplication.entity.Account;
 import com.example.bankapplication.entity.Agreement;
-import com.example.bankapplication.entity.enums.AccountStatus;
-import com.example.bankapplication.exception.ResourceListEmptyException;
 import com.example.bankapplication.exception.ResourceNotFoundException;
 import com.example.bankapplication.mapper.AgreementMapper;
 import com.example.bankapplication.repository.AgreementRepository;
@@ -26,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 

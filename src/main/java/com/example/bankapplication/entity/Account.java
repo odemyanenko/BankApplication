@@ -9,6 +9,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -59,17 +60,17 @@ public class Account {
   @JsonIgnore
   @OneToMany(mappedBy = "account", fetch = FetchType.LAZY,
           cascade = {MERGE, PERSIST, REFRESH})
-  private Set<Agreement> agreements;
+  private Set<Agreement> agreements = new HashSet<>();;
 
   @JsonIgnore
   @OneToMany(mappedBy = "debitAccount", fetch = FetchType.LAZY,
           cascade = {MERGE, PERSIST, REFRESH})
-  private Set<Transaction> debitTransactions;
+  private Set<Transaction> debitTransactions = new HashSet<>();
 
   @JsonIgnore
   @OneToMany(mappedBy = "creditAccount", fetch = FetchType.LAZY,
           cascade = {MERGE, PERSIST, REFRESH})
-  private Set<Transaction> creditTransactions;
+  private Set<Transaction> creditTransactions = new HashSet<>();
 
   @Override
   public boolean equals(Object o) {

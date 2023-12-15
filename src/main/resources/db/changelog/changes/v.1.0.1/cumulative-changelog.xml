@@ -10,6 +10,7 @@
 
     <include file="changelog_drop_tables.xml" relativeToChangelogFile="true"/>
     <include file="changelog_create_tables.xml" relativeToChangelogFile="true"/>
+    <include file="changelog_create_functions.xml" relativeToChangelogFile="true"/>
     <include file="changelog_insert_data.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

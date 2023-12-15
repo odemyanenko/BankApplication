@@ -10,4 +10,6 @@ public class ErrorMessage {
   public static final String ACCOUNT_LIST_EMPTY = "Account list is empty";
 
   public static final String TRANSACTION_NOT_FOUND = "Transaction was not found by this Id";
+
+  public static final String USER_NOT_FOUND = "User was not found by this Id";
 }
