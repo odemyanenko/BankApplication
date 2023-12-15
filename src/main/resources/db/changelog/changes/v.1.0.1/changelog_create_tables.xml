@@ -4,6 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
+    <include file="/F001_create_table_changelog/F001_create_table_changelog_0_users.sql" relativeToChangelogFile="true"/>
     <include file="/F001_create_table_changelog/F001_create_table_changelog_1_managers.sql" relativeToChangelogFile="true"/>
     <include file="/F001_create_table_changelog/F001_create_table_changelog_2_products.sql" relativeToChangelogFile="true"/>
     <include file="/F001_create_table_changelog/F001_create_table_changelog_3_clients.sql" relativeToChangelogFile="true"/>

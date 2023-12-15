@@ -31,5 +31,9 @@ logging:
 ##    org.hibernate.type.descriptor.sql.BasicBinder=TRACE
 #    org: info
 
+
+jwt:
+  secret: ${key}
+
 server:
   port : 8081

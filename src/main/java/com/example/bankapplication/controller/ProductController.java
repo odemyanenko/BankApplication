@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("auth/products")
+@RequestMapping("/products")
 @Tag(name = "Product Management", description = "Endpoints for product management")
 @RequiredArgsConstructor
 public class ProductController {

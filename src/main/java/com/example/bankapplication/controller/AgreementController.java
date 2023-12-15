@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("auth/agreements")
+@RequestMapping("/agreements")
 @Tag(name = "Agreements Management", description = "Endpoints for agreements management")
 @RequiredArgsConstructor
 public class AgreementController {

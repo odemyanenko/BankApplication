@@ -7,6 +7,7 @@ import com.example.bankapplication.exception.ResourceNotFoundException;
 import com.example.bankapplication.mapper.TransactionMapper;
 import com.example.bankapplication.repository.TransactionRepository;
 import com.example.bankapplication.service.TransactionService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class TransactionalServiceImpl implements TransactionService {
   }
 
   @Override
+  @Transactional
   public boolean deleteById(UUID id) {
     if (transactionRepository.existsById(id)) {
       transactionRepository.deleteById(id);

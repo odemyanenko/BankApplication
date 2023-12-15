@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("auth/managers")
+@RequestMapping("/managers")
 @Tag(name = "Manager Management", description = "Endpoint for manager management")
 @RequiredArgsConstructor
 public class ManagerController {

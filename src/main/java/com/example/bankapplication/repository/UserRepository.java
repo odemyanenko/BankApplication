@@ -1,6 +1,5 @@
 package com.example.bankapplication.repository;
 
-import com.example.bankapplication.entity.Client;
 import com.example.bankapplication.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +10,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, UUID> {
-  Optional<Client> findById(UUID id);
-  Optional<Client> findByEmail(String email);
+public interface UserRepository  extends JpaRepository<User, UUID> {
+  @Query("SELECT u FROM User u WHERE u.email = :email")
+  Optional<User> findByEmail(@Param("email") String email);
+
+  @Query("SELECT u FROM User u WHERE u.id = :uuid AND u.role = 'MANAGER'")
+  Optional<User> findManagerById(UUID uuid);
 }

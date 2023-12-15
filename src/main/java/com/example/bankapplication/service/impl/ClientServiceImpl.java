@@ -2,6 +2,7 @@ package com.example.bankapplication.service.impl;
 
 import com.example.bankapplication.dto.ClientDto;
 import com.example.bankapplication.entity.Client;
+import com.example.bankapplication.entity.Manager;
 import com.example.bankapplication.exception.ErrorMessage;
 import com.example.bankapplication.exception.ResourceNotFoundException;
 import com.example.bankapplication.mapper.ClientMapper;
@@ -22,6 +23,15 @@ public class ClientServiceImpl implements ClientService {
   @Override
   public ClientDto findById(UUID id) {
     Optional<Client> clientOptional = clientRepository.findById(id);
+    Client client = clientOptional.orElseThrow(() ->
+            new ResourceNotFoundException(ErrorMessage.CLIENT_NOT_FOUND));
+
+    return clientMapper.toDto(client);
+  }
+
+  @Override
+  public ClientDto findByEmail(String email) {
+    Optional<Client> clientOptional = clientRepository.findByEmail(email);
     Client client = clientOptional.orElseThrow(() ->
             new ResourceNotFoundException(ErrorMessage.CLIENT_NOT_FOUND));
 
